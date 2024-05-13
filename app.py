@@ -146,10 +146,6 @@ def main():
     llm_with_tools = llm.bind_tools(tools)
 
     st.set_page_config(page_title="AI tooling Analysis", page_icon="📈", layout="wide")
-    # Display the Groq logo
-    _, col = st.columns([5, 1])
-    with col:
-        st.image("groqcloud_darkmode.png")
 
     # Display the title and introduction of the application
     st.title(f"Groqing the Stock Market with {model_name}")
