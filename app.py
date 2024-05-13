@@ -6,7 +6,7 @@ import yfinance as yf
 import pandas as pd
 
 from langchain_core.tools import tool
-from langchain_core.messages import AIMessage, SystemMessage, HumanMessage, ToolMessage
+from langchain_core.messages import SystemMessage, HumanMessage, ToolMessage
 
 from datetime import date
 import pandas as pd
@@ -138,7 +138,7 @@ def call_functions(llm_with_tools, user_prompt):
     return llm_with_tools.invoke(messages).content
 
 
-def main():
+def main() -> None:
     model_name = "llama3-70b-8192"
     llm = ChatGroq(groq_api_key=os.getenv("GROQ_API_KEY"), model=model_name)
 
@@ -148,14 +148,17 @@ def main():
     st.set_page_config(page_title="AI tooling Analysis", page_icon="📈", layout="wide")
 
     # Display the title and introduction of the application
-    st.title(f"Groqing the Stock Market with {model_name}")
+    st.title(
+        f"Groqing the Stock Market with {model_name} [䷢](https://github.com/furyhawk/llama3-function-calling)"
+    )
     multiline_text = """
     Try to ask it "What is the current price of Meta stock?" or "Show me the historical prices of Apple vs Microsoft stock over the past 6 months.".
     """
-    st.markdown(multiline_text, unsafe_allow_html=True)
-
     # Get the user's question
-    user_question = st.text_input("Ask a question about a stock or multiple stocks:")
+    user_question = st.text_input(
+        "Ask a question about a stock or multiple stocks:",
+        placeholder=multiline_text,
+    )
 
     if user_question:
         response = call_functions(llm_with_tools, user_question)
