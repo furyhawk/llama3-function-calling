@@ -156,7 +156,7 @@ def main() -> None:
     """
     # Get the user's question
     user_question = st.text_input(
-        "Ask a question about a stock or multiple stocks:",
+        "Ask a question about a stock or multiple stocks 📈:",
         placeholder=multiline_text,
     )
 
