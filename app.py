@@ -1,6 +1,7 @@
-from langchain_groq import ChatGroq
 import os
+
 from dotenv import load_dotenv
+from langchain_groq import ChatGroq
 import yfinance as yf
 import pandas as pd
 
@@ -12,8 +13,11 @@ import pandas as pd
 import plotly.graph_objects as go
 
 import streamlit as st
+from streamlit.logger import get_logger
 
 load_dotenv()
+
+logger = get_logger(__name__)
 
 
 @tool
@@ -24,9 +28,12 @@ def get_stock_info(symbol, key):
 
     If asked generically for 'stock price', use currentPrice
     """
+    logger.info("Fetching stock info for symbol: %s", symbol)
+    logger.info("Fetching stock info for key: %s", key)
+
     data = yf.Ticker(symbol)
     stock_info = data.info
-    return stock_info[key]
+    return stock_info[key] if key in stock_info else "Invalid key"
 
 
 @tool
@@ -97,7 +104,9 @@ def call_functions(llm_with_tools, user_prompt):
     )
 
     messages = [SystemMessage(system_prompt), HumanMessage(user_prompt)]
+    logger.info("Invoking LLM: %s", messages)
     ai_msg = llm_with_tools.invoke(messages)
+    logger.info("AI response: %s", ai_msg)
     messages.append(ai_msg)
     historical_price_dfs = []
     symbols = []
@@ -130,30 +139,24 @@ def call_functions(llm_with_tools, user_prompt):
 
 
 def main():
-
-    llm = ChatGroq(groq_api_key=os.getenv("GROQ_API_KEY"), model="llama3-70b-8192")
+    model_name = "llama3-70b-8192"
+    llm = ChatGroq(groq_api_key=os.getenv("GROQ_API_KEY"), model=model_name)
 
     tools = [get_stock_info, get_historical_price]
     llm_with_tools = llm.bind_tools(tools)
 
+    st.set_page_config(page_title="AI tooling Analysis", page_icon="📈", layout="wide")
     # Display the Groq logo
-    spacer, col = st.columns([5, 1])
+    _, col = st.columns([5, 1])
     with col:
         st.image("groqcloud_darkmode.png")
 
     # Display the title and introduction of the application
-    st.title("Groqing the Stock Market with Llama 3")
+    st.title(f"Groqing the Stock Market with {model_name}")
     multiline_text = """
     Try to ask it "What is the current price of Meta stock?" or "Show me the historical prices of Apple vs Microsoft stock over the past 6 months.".
     """
-
     st.markdown(multiline_text, unsafe_allow_html=True)
-
-    # Add customization options to the sidebar
-    st.sidebar.title("Customization")
-    additional_context = st.sidebar.text_input(
-        "Enter additional summarization context for the LLM here (i.e. write it in spanish):"
-    )
 
     # Get the user's question
     user_question = st.text_input("Ask a question about a stock or multiple stocks:")

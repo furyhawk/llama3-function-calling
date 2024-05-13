@@ -17,6 +17,7 @@ yfinance = "^0.2.38"
 plotly = "^5.22.0"
 langchain-core = "^0.1.52"
 python-dotenv = "^1.0.1"
+ipykernel = "^6.29.4"
 
 
 [build-system]
