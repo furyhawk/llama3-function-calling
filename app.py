@@ -145,7 +145,17 @@ def main() -> None:
     tools = [get_stock_info, get_historical_price]
     llm_with_tools = llm.bind_tools(tools)
 
-    st.set_page_config(page_title="AI tooling Analysis", page_icon="📈", layout="wide")
+    st.set_page_config(
+        page_title="Stock Market Assistant",
+        page_icon="📈",
+        layout="wide",
+        menu_items={
+            "Get help": "https://github.com/furyhawk/llama3-function-calling/issues",
+            "Report a bug": "https://github.com/furyhawk/llama3-function-calling/issues/new",
+            "About": """# Stock Market Assistant
+                https://github.com/furyhawk/llama3-function-calling""",
+        },
+    )
 
     # Display the title and introduction of the application
     st.title(
