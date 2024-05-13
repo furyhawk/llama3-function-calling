@@ -1,0 +1,12 @@
+services:
+  llama3toolsfin_app:
+    container_name: llama3toolsfin_app
+    build:
+      dockerfile: ./Dockerfile
+    image: furyhawk/llama3toolsfin:latest
+    environment:
+      - GROQ_API_KEY=${GROQ_API_KEY}
+    ports:
+      - "${FIN_PORT:-8501}:8501"
+    restart: unless-stopped
+

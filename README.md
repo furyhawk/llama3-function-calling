@@ -22,8 +22,22 @@ The function calling in this application is handled by the Groq API, abstracted 
 
 2. Install the required dependencies listed in the **requirements.txt** file.
 
-3. Run the application using Streamlit with the command `streamlit run app.py`.
+3. create a .env file with the following command:
+```sh
+cp .env.example .env
+```
+and add your GROQ_API_KEY to the .env file:
+```sh
+GROQ_API_KEY=YOUR_GROQ_API_KEY
+```
 
-4. In the application, enter your question about a stock in the text input field. For example, "What is the current price of Google stock?" or "Show me the historical prices of Amazon and Tesla over the past year.".
+4. Run the application using Streamlit with the command `streamlit run app.py`.
 
-5. If you want to provide additional context for the language model, you can do so in the sidebar.
+5. In the application, enter your question about a stock in the text input field. For example, "What is the current price of Google stock?" or "Show me the historical prices of Amazon and Tesla over the past year.".
+
+6. If you want to provide additional context for the language model, you can do so in the sidebar.
+
+# Dockerfile
+```sh
+docker compose up --build -d
+```
