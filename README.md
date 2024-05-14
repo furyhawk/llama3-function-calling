@@ -1,5 +1,6 @@
 # Stock Market Analysis with Llama 3 Function Calling
 
+[Website](https://fin.furyhawk.lol/)
 Welcome to the Stock Market Analyst! This is a Streamlit web application that leverages the yfinance API to provide insights into stocks and their prices. The application uses the Llama 3 model on Groq in conjunction with Langchain to call functions based on the user prompt.
 
 ## Key Functions

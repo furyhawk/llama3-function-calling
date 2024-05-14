@@ -159,9 +159,10 @@ def main() -> None:
 
     # Display the title and introduction of the application
     st.title(
-        f"Groqing the Stock Market with {model_name} [䷢](https://github.com/furyhawk/llama3-function-calling)"
+        f"Groqing the Stock Market with {model_name}"
     )
     st.subheader("[Github source](https://github.com/furyhawk/llama3-function-calling)")
+    st.divider()
     multiline_text = """
     Try to ask it "What is the current price of Meta stock?" or "Show me the historical prices of Apple vs Microsoft stock over the past 6 months.".
     """
