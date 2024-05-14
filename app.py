@@ -164,7 +164,7 @@ def main() -> None:
     st.subheader("[Github source](https://github.com/furyhawk/llama3-function-calling)")
     st.divider()
     multiline_text = """
-    Try to ask it "What is the current price of Meta stock?" or "Show me the historical prices of Apple vs Microsoft stock over the past 6 months.".
+    Try to ask it "Show me the historical prices of NVidia vs Microsoft stock over the past 6 months." or "What is the current price of Meta stock?".
     """
     # Get the user's question
     user_question = st.text_input(
